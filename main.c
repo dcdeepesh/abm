@@ -46,11 +46,6 @@ void run_program(Program* program) {
         Line* curr_line = program->lines[program->ip];
         
         program->ip++;
-
-        // skip if empty line
-        if (strlen(curr_line->op) == 0) {
-            continue;
-        }
         
         int findex;
         for (findex = 0; findex < ftable->total_functions; findex++) {

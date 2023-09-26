@@ -15,7 +15,14 @@ Program* parse_file(FILE *file) {
     char line_buf[PARSER_MAX_LINE_LENGTH];
     int line_no = 0;
     while (fgets(line_buf, PARSER_MAX_LINE_LENGTH, file) != NULL) {
-        program->lines[line_no] = parse_line(line_buf);
+        Line* parsed_line = parse_line(line_buf);
+        
+        // skip if empty line
+        if (strlen(parsed_line->op) == 0) {
+            continue;
+        }
+
+        program->lines[line_no] = parsed_line;
         check_label(program, line_no);
         line_no++;
     }
