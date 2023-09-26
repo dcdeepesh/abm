@@ -9,7 +9,6 @@ typedef struct Program Program;
 typedef struct Variable {
     char* name;
     int value;
-    BOOL parameter;
 } Variable;
 
 typedef struct FunctionContext {
