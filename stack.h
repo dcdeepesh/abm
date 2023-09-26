@@ -4,7 +4,7 @@
 typedef struct Program Program;
 #include "util.h"
 
-static const int FC_MAX_VARIABLES = 128;
+#define FC_MAX_VARIABLES 128
 
 typedef struct Variable {
     char* name;
@@ -13,11 +13,11 @@ typedef struct Variable {
 } Variable;
 
 typedef struct FunctionContext {
-    Variable** variables;
+    Variable* variables[FC_MAX_VARIABLES];
     int total_variables;
 } FunctionContext;
 
-static const int STACK_MAX_VALUES = 1024;
+#define STACK_MAX_VALUES 1024
 
 typedef union StackValue {
     int i_value;
@@ -25,7 +25,7 @@ typedef union StackValue {
 } StackValue;
 
 typedef struct Stack {
-    StackValue* values;
+    StackValue values[STACK_MAX_VALUES];
     int top;
 } Stack;
 

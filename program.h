@@ -4,6 +4,10 @@
 #include "util.h"
 #include "stack.h"
 
+#define PARSER_MAX_LINES 1024
+#define PARSER_MAX_LINE_LENGTH 256
+#define PARSER_MAX_LABELS 256
+
 typedef struct Line {
     char* op;
     char* args;
@@ -15,9 +19,9 @@ typedef struct Label {
 } Label;
 
 typedef struct Program {
-    Line** lines;
+    Line* lines[PARSER_MAX_LINES];
     int total_lines; 
-    Label** labels;
+    Label* labels[PARSER_MAX_LABELS];
     int total_labels;
 
     int ip;

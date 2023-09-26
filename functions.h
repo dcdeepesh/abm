@@ -3,7 +3,7 @@
 
 #include "program.h"
 
-static const int TOTAL_INSTRUCTIONS = 31;
+#define TOTAL_INSTRUCTIONS 31
 
 typedef struct Function {
     char* instruction;
@@ -11,7 +11,7 @@ typedef struct Function {
 } Function;
 
 typedef struct FunctionTable {
-    Function** functions;
+    Function* functions[TOTAL_INSTRUCTIONS];
     int total_functions;
 } FunctionTable;
 
