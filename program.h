@@ -15,13 +15,14 @@ typedef struct Label {
 
 typedef struct Program {
     Line** lines;
-    int total_lines;
+    int total_lines; 
     Label** labels;
     int total_labels;
 
     int ip;
     Stack* stack;
     int stack_base;
+    FunctionContext* callee_fc;
 } Program;
 
 #endif

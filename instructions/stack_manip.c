@@ -11,11 +11,20 @@ void push(Program* program, char* args) {
 // Helper function for lvalue() and rvalue()
 int get_variable(Program* program, char* var_name, BOOL address) {
     StackValue sv = program->stack->values[program->stack_base - 2];
-    FunctionContext* current_fc = sv.fc_ptr;
+    FunctionContext* fc = sv.fc_ptr;
 
-    for (int i = 0; i < current_fc->total_variables; i++) {
-        if (strcmp(current_fc->variables[i]->name, var_name) == 0) {
-            return address ? i : current_fc->variables[i]->value;
+    for (int i = 0; i < fc->total_variables; i++) {
+        if (strcmp(fc->variables[i]->name, var_name) == 0) {
+            return address ? i : fc->variables[i]->value;
+        }
+    }
+    // If we're in a begin...end block, look in callee's FC too
+    if (program->callee_fc != NULL) {
+        fc = program->callee_fc;
+        for (int i = 0; i < fc->total_variables; i++) {
+            if (strcmp(fc->variables[i]->name, var_name) == 0) {
+                return address ? i : fc->variables[i]->value;
+            }
         }
     }
 
@@ -23,9 +32,15 @@ int get_variable(Program* program, char* var_name, BOOL address) {
     Variable* variable = new(Variable);
     variable->name = var_name;
     variable->value = 0;
-    int new_var_address = current_fc->total_variables;
-    current_fc->variables[new_var_address] = variable;
-    current_fc->total_variables++;
+    // If we're in a begin...end block, the new
+    // variable is a paremeter to the callee
+    if (program->callee_fc != NULL) {
+        variable->parameter = TRUE;
+    }
+    
+    int new_var_address = fc->total_variables;
+    fc->variables[new_var_address] = variable;
+    fc->total_variables++;
 
     return address ? new_var_address : 0;
 }

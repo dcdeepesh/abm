@@ -24,9 +24,8 @@ int main(int argc, char **argv) {
     }
 
     Program* program = parse_file(file);
-    
     program->ip = 0;
-
+    program->callee_fc = NULL;
     Stack* stack = create_stack(program);
     program->stack = stack;
     program->stack_base = stack->top;

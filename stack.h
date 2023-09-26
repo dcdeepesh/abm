@@ -9,6 +9,7 @@ static const int FC_MAX_VARIABLES = 128;
 typedef struct Variable {
     char* name;
     int value;
+    BOOL parameter;
 } Variable;
 
 typedef struct FunctionContext {
