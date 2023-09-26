@@ -20,13 +20,12 @@ int get_variable(Program* program, char* var_name, BOOL address) {
     }
     // If we're in a begin...end block, look in callee's FC too, for params
     if (program->callee_fc != NULL) {
-        fc = program->callee_fc;
-        for (int i = 0; i < fc->total_variables; i++) {
-            if (strcmp(fc->variables[i]->name, var_name) == 0
-                && fc->variables[i]->parameter) {
+        for (int i = 0; i < program->callee_fc->total_variables; i++) {
+            if (strcmp(program->callee_fc->variables[i]->name, var_name) == 0
+                && program->callee_fc->variables[i]->parameter) {
                 // An offset of 1000 to distinguish local variables
                 // from callee's parameters
-                return address ? (i + 1000) : fc->variables[i]->value;
+                return address ? (i + 1000) : program->callee_fc->variables[i]->value;
             }
         }
     }
@@ -35,21 +34,21 @@ int get_variable(Program* program, char* var_name, BOOL address) {
     Variable* variable = new(Variable);
     variable->name = var_name;
     variable->value = 0;
+    int new_var_address = 0;
     // If we're in a begin...end block, the new
     // variable is a paremeter to the callee
-    if (program->callee_fc != NULL) {
+    if (program->callee_fc != NULL && program->call_pending) {
+        fc = program->callee_fc;
         variable->parameter = TRUE;
-    }
-    
-    int new_var_address = fc->total_variables;
-    fc->variables[new_var_address] = variable;
-    fc->total_variables++;
-
-    if (program->callee_fc != NULL) {
         // An offset of 1000 to distinguish local variables
         // from callee's parameters
         new_var_address += 1000;
     }
+    
+    new_var_address += fc->total_variables;
+    fc->variables[fc->total_variables] = variable;
+    fc->total_variables++;
+
     return address ? new_var_address : 0;
 }
 

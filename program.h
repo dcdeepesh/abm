@@ -1,6 +1,7 @@
 #ifndef ABM_PROGRAM_H
 #define ABM_PROGRAM_H
 
+#include "util.h"
 #include "stack.h"
 
 typedef struct Line {
@@ -23,6 +24,7 @@ typedef struct Program {
     Stack* stack;
     int stack_base;
     FunctionContext* callee_fc;
+    BOOL call_pending;
 } Program;
 
 #endif

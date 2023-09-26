@@ -10,6 +10,7 @@ void begin(Program* program, char* args) {
     callee_fc->variables = malloc(sizeof(Variable) * FC_MAX_VARIABLES);
     callee_fc->total_variables = 0;
     program->callee_fc = callee_fc;
+    program->call_pending = TRUE;
 }
 
 // Destroy the callee FC
@@ -42,6 +43,7 @@ void call(Program* program, char* args) {
 
     program->stack_base = new_stack_base;
     program->callee_fc = NULL;
+    program->call_pending = FALSE;
 
     goto_(program, args);
 }
