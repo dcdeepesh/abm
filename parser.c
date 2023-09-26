@@ -16,7 +16,7 @@ Program* parse_file(FILE *file) {
     int line_no = 0;
     while (fgets(line_buf, PARSER_MAX_LINE_LENGTH, file) != NULL) {
         Line* parsed_line = parse_line(line_buf);
-        
+
         // skip if empty line
         if (strlen(parsed_line->op) == 0) {
             continue;
@@ -63,6 +63,7 @@ Line* parse_line(char* line) {
         args[args_ch_index++] = line[line_ch_index++];
     }
     args[args_ch_index] = '\0';
+    trim_end(args);
     result->args = str(args);
 
     return result;

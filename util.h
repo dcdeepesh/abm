@@ -9,5 +9,6 @@
 
 // returns a copy of a stack string as a heap string
 char* str(char* stack_str);
+void trim_end(char* str);
 
 #endif
