@@ -7,9 +7,7 @@
 #include <ctype.h>
 
 Program* parse_file(FILE *file) {
-    Program* program = malloc(sizeof(Program));
-    program->lines = malloc(sizeof(Line*) * PARSER_MAX_LINES);
-    program->labels = malloc(sizeof(Label*) * PARSER_MAX_LABELS);
+    Program* program = new(Program);
     program->total_labels = 0;
 
     char line_buf[PARSER_MAX_LINE_LENGTH];
@@ -32,7 +30,7 @@ Program* parse_file(FILE *file) {
 }
 
 Line* parse_line(char* line) {
-    Line* result = malloc(sizeof(Line));
+    Line* result = new(Line);
     int line_ch_index = 0;
 
     // skip the indentation

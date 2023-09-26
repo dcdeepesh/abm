@@ -16,7 +16,6 @@ void add_to_function_table(FunctionTable* table, char* instruction, void (*handl
 
 FunctionTable* build_function_table() {
     FunctionTable* table = new(FunctionTable);
-    table->functions = malloc(sizeof(Function*) * TOTAL_INSTRUCTIONS);
     table->total_functions = 0;
 
     add_to_function_table(table, "push", push);

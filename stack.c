@@ -6,7 +6,6 @@
 
 Stack* create_stack(Program* program) {
     Stack* stack = new(Stack);
-    stack->values = malloc(sizeof(StackValue) * STACK_MAX_VALUES);
     stack->top = 0;
 
     // push the initial "previous" stack base (dummy)
@@ -17,7 +16,6 @@ Stack* create_stack(Program* program) {
 
     // push the initial function context
     FunctionContext* fc = new(FunctionContext);
-    fc->variables = malloc(sizeof(Variable) * FC_MAX_VARIABLES);
     fc->total_variables = 0;
     stack_push_fc(stack, fc);
 
