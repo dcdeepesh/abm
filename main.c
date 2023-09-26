@@ -28,7 +28,7 @@ int main(int argc, char **argv) {
     program->callee_fc = NULL;
     Stack* stack = create_stack(program);
     program->stack = stack;
-    program->stack_base = stack->top;
+    program->stack_base = 0;
 
     // for (int i = 0; i < program->total_lines; i++) {
     //     printf("%3d: [%s] [%s]\n", i+1, program->lines[i]->op, program->lines[i]->args);
