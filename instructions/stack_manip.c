@@ -9,20 +9,23 @@ void push(Program* program, char* args) {
 
 // TODO uses stack_base
 // Helper function for lvalue() and rvalue()
-int get_variable(Program* program, char* var_name, BOOL address) {
-    StackValue sv = program->stack->values[program->stack_base + 2];
-    FunctionContext* fc = sv.fc_ptr;
+int get_variable(Program* program, char* var_name, BOOL address, BOOL callerOnly, BOOL calleeOnly) {
+    FunctionContext* fc = program->stack->values[program->stack_base + 2].fc_ptr;
 
-    for (int i = 0; i < fc->total_variables; i++) {
-        if (strcmp(fc->variables[i]->name, var_name) == 0) {
-            return address ? i : fc->variables[i]->value;
+    if (!calleeOnly) {
+        for (int i = 0; i < fc->total_variables; i++) {
+            if (strcmp(fc->variables[i]->name, var_name) == 0) {
+                return address ? i : fc->variables[i]->value;
+            }
         }
     }
-    // If we're in a begin...end block, look in callee's FC too, for params
-    if (program->callee_fc != NULL) {
-        for (int i = 0; i < program->callee_fc->total_variables; i++) {
-            if (strcmp(program->callee_fc->variables[i]->name, var_name) == 0) {
-                return address ? (i + 1000) : program->callee_fc->variables[i]->value;
+
+    if (!callerOnly) {
+        if (program->callee_fc != NULL) {
+            for (int i = 0; i < program->callee_fc->total_variables; i++) {
+                if (strcmp(program->callee_fc->variables[i]->name, var_name) == 0) {
+                    return address ? (i + 1000) : program->callee_fc->variables[i]->value;
+                }
             }
         }
     }
@@ -49,11 +52,22 @@ int get_variable(Program* program, char* var_name, BOOL address) {
 }
 
 void rvalue(Program* program, char* args) {
-    stack_push_value(program->stack, get_variable(program, args, FALSE));
+    stack_push_value(program->stack, get_variable(program, args, FALSE, FALSE, FALSE));
 }
 
 void lvalue(Program* program, char* args) {
-    stack_push_value(program->stack, get_variable(program, args, TRUE));
+    BOOL callerOnly = FALSE;
+    BOOL calleeOnly = FALSE;
+
+    if (program->callee_fc != NULL) {
+        if (program->call_pending) {
+            calleeOnly = TRUE;
+        } else {
+            callerOnly = TRUE;
+        }
+    }
+
+    stack_push_value(program->stack, get_variable(program, args, TRUE, callerOnly, calleeOnly));
 }
 
 void pop(Program* program, char* args) {
