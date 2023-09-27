@@ -1,0 +1,13 @@
+push 0
+
+label loop
+    push 1
+    +
+    print
+    copy
+    push 5
+    =
+    gotrue exit
+goto loop
+    
+label exit

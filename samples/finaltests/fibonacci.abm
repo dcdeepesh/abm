@@ -1,0 +1,68 @@
+lvalue numberOfTermsToPrint
+push 10
+:=
+
+lvalue n
+push 1
+:=
+label loop
+    rvalue n
+    rvalue numberOfTermsToPrint
+    >
+    gotrue end
+    begin
+        lvalue n
+        rvalue n
+        :=
+        call nthTerm
+        rvalue ret
+        print
+        pop
+    end
+    lvalue n
+    rvalue n
+    push 1
+    +
+    :=
+goto loop
+label end
+halt
+
+label nthTerm
+    rvalue n
+    push 3
+    <
+    gotrue exitCondition
+    begin
+        lvalue n
+        rvalue n
+        push 1
+        -
+        :=
+        call nthTerm
+        lvalue term
+        rvalue ret
+        :=
+    end
+    begin
+        lvalue n
+        rvalue n
+        push 2
+        -
+        :=
+        call nthTerm
+        lvalue term
+        rvalue term
+        rvalue ret
+        +
+        :=
+    end
+    lvalue ret
+    rvalue term
+    :=
+    return
+label exitCondition
+    lvalue ret
+    push 1
+    :=
+    return
