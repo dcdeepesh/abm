@@ -9,7 +9,7 @@
 #include "functions.h"
 #include "stack.h"
 
-void run_program(Program* program);
+void run_program(Program* program, FunctionTable* ftable);
 
 int main(int argc, char **argv) {
     if (argc != 2) {
@@ -30,18 +30,14 @@ int main(int argc, char **argv) {
     program->stack = stack;
     program->stack_base = 0;
 
-    // for (int i = 0; i < program->total_lines; i++) {
-    //     printf("%3d: [%s] [%s]\n", i+1, program->lines[i]->op, program->lines[i]->args);
-    // }
+    FunctionTable* ftable = build_function_table();
 
-    run_program(program);
+    run_program(program, ftable);
 
     return 0;
 }
 
-void run_program(Program* program) {
-    FunctionTable* ftable = build_function_table();
-
+void run_program(Program* program, FunctionTable* ftable) {
     while (program->ip < program->total_lines) {
         Line* curr_line = program->lines[program->ip];
         
