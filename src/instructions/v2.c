@@ -26,6 +26,29 @@ void dot_data(Program* program, char* args) {
 void dot_text(Program* program, char* args) {
 }
 
+Variable* get_variable_from_address(Program* program, int address) {
+    // An offset of 61000 to indicate global variables
+    if (address >= 61000) {
+        return program->global_variables[address - 61000];;
+    }
+    // An offset of 60000 to indicate callee's parameters
+    else if (address >= 60000) {
+        return program->callee_fc->variables[address - 60000];
+    } else {
+        FunctionContext* current_fc =
+            program->stack->values[program->stack_base + 2].fc_ptr;
+        return current_fc->variables[address];
+    }
+}
+
 void lvalue_assign(Program* program, char* args) {
-    
+    int right = stack_pop_value(program->stack);
+    int left = stack_pop_value(program->stack);
+
+    Variable* lv = get_variable_from_address(program, left);
+    Variable* rv = get_variable_from_address(program, right);
+
+    rv->names[rv->total_names] = lv->names[0];
+    rv->total_names++;
+    lv->total_names = 0;
 }
