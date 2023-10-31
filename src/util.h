@@ -1,6 +1,8 @@
 #ifndef ABM_UTIL_H
 #define ABM_UTIL_H
 
+#include <stdlib.h>
+
 #define new(structure) malloc(sizeof(structure))
 
 #define BOOL int
