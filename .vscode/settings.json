@@ -12,6 +12,7 @@
         "util.h": "c",
         "subprog_control.h": "c",
         "logical_ops.h": "c",
-        "stack.h": "c"
+        "stack.h": "c",
+        "program.h": "c"
     }
 }

@@ -41,4 +41,6 @@ void end(Program* program, char* args);
 void return_(Program* program, char* args);
 void call(Program* program, char* args);
 
+void int_(Program* program, char* args);
+
 #endif

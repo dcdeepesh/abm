@@ -55,4 +55,6 @@ FunctionTable* build_function_table() {
     add_to_function_table(table, "end", end);
     add_to_function_table(table, "return", return_);
     add_to_function_table(table, "call", call);
+
+    add_to_function_table(table, ".int", int_);
 }
