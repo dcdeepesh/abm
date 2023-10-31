@@ -24,7 +24,7 @@ int get_variable(Program* program, char* var_name, BOOL address, BOOL callerOnly
         if (program->callee_fc != NULL) {
             for (int i = 0; i < program->callee_fc->total_variables; i++) {
                 if (strcmp(program->callee_fc->variables[i]->name, var_name) == 0) {
-                    return address ? (i + 1000) : program->callee_fc->variables[i]->value;
+                    return address ? (i + 60000) : program->callee_fc->variables[i]->value;
                 }
             }
         }
@@ -39,9 +39,9 @@ int get_variable(Program* program, char* var_name, BOOL address, BOOL callerOnly
     // variable is a paremeter to the callee
     if (program->callee_fc != NULL && program->call_pending) {
         fc = program->callee_fc;
-        // An offset of 1000 to distinguish local variables
+        // An offset of 60000 to distinguish local variables
         // from callee's parameters
-        new_var_address += 1000;
+        new_var_address += 60000;
     }
     
     new_var_address += fc->total_variables;
@@ -78,9 +78,9 @@ void pop(Program* program, char* args) {
 // Helper function for assign()
 // Handles both callee's and current FCs
 void set_variable(Program* program, int address, int value) {
-    // An offset of 1000 to distinguish local variables from callee's parameters
-    if (address >= 1000) {
-        program->callee_fc->variables[address - 1000]->value = value;
+    // An offset of 60000 to distinguish local variables from callee's parameters
+    if (address >= 60000) {
+        program->callee_fc->variables[address - 60000]->value = value;
     } else {
         FunctionContext* current_fc =
             program->stack->values[program->stack_base + 2].fc_ptr;
