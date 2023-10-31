@@ -17,7 +17,6 @@ void push(Program* program, char* args) {
     stack_push_value(program->stack, atoi(args));
 }
 
-// TODO uses stack_base
 // Helper function for lvalue() and rvalue()
 int get_variable(Program* program, char* var_name, BOOL address, BOOL callerOnly, BOOL calleeOnly) {
     FunctionContext* fc = program->stack->values[program->stack_base + 2].fc_ptr;
@@ -91,7 +90,6 @@ void pop(Program* program, char* args) {
     stack_pop_value(program->stack);
 }
 
-// TODO uses stack_base
 // Helper function for assign()
 // Handles both callee's and current FCs
 void set_variable(Program* program, int address, int value) {
