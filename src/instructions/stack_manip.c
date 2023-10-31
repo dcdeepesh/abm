@@ -3,6 +3,16 @@
 #include "program.h"
 #include "util.h"
 
+BOOL variable_has_name(Variable* var, char* name) {
+    for (int i = 0; i < var->total_names; i++) {
+        if (strcmp(var->names[i], name) == 0) {
+            return TRUE;
+        }
+    }
+
+    return FALSE;
+}
+
 void push(Program* program, char* args) {
     stack_push_value(program->stack, atoi(args));
 }
@@ -14,7 +24,7 @@ int get_variable(Program* program, char* var_name, BOOL address, BOOL callerOnly
 
     if (!calleeOnly) {
         for (int i = 0; i < fc->total_variables; i++) {
-            if (strcmp(fc->variables[i]->name, var_name) == 0) {
+            if (variable_has_name(fc->variables[i], var_name)) {
                 return address ? i : fc->variables[i]->value;
             }
         }
@@ -23,7 +33,7 @@ int get_variable(Program* program, char* var_name, BOOL address, BOOL callerOnly
     if (!callerOnly) {
         if (program->callee_fc != NULL) {
             for (int i = 0; i < program->callee_fc->total_variables; i++) {
-                if (strcmp(program->callee_fc->variables[i]->name, var_name) == 0) {
+                if (variable_has_name(program->callee_fc->variables[i], var_name)) {
                     return address ? (i + 60000) : program->callee_fc->variables[i]->value;
                 }
             }
@@ -32,14 +42,15 @@ int get_variable(Program* program, char* var_name, BOOL address, BOOL callerOnly
 
     // Check in global variables
     for (int i = 0; i < program->total_global_variables; i++) {
-        if (strcmp(program->global_variables[i]->name, var_name) == 0) {
+        if (variable_has_name(program->global_variables[i], var_name)) {
             return address ? (i + 61000) : program->global_variables[i]->value;
         }
     }
 
     // Variable doesn't exist. Make one
     Variable* variable = new(Variable);
-    variable->name = var_name;
+    variable->names[variable->total_names] = var_name;
+    variable->total_names++;
     variable->value = 0;
     int new_var_address = 0;
     // If we're in a begin...end block, the new

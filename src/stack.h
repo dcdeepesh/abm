@@ -6,8 +6,11 @@ typedef struct Program Program;
 
 #define FC_MAX_VARIABLES 128
 
+#define VAR_MAX_NAMES 16
+
 typedef struct Variable {
-    char* name;
+    char* names[VAR_MAX_NAMES];
+    int total_names;
     int value;
 } Variable;
 

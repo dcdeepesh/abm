@@ -4,7 +4,8 @@
 
 void create_global_variable(Program* program, char* var_name) {
     Variable* variable = new(Variable);
-    variable->name = var_name;
+    variable->names[variable->total_names] = var_name;
+    variable->total_names++;
     variable->value = 0;
 
     program->global_variables[program->total_global_variables] = variable;
