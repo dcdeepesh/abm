@@ -42,5 +42,7 @@ void return_(Program* program, char* args);
 void call(Program* program, char* args);
 
 void int_(Program* program, char* args);
+void dot_data(Program* program, char* args);
+void dot_text(Program* program, char* args);
 
 #endif

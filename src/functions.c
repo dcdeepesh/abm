@@ -57,4 +57,6 @@ FunctionTable* build_function_table() {
     add_to_function_table(table, "call", call);
 
     add_to_function_table(table, ".int", int_);
+    add_to_function_table(table, ".data", dot_data);
+    add_to_function_table(table, ".text", dot_text);
 }

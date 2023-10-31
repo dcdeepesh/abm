@@ -18,3 +18,9 @@ void int_(Program* program, char* args) {
         var_name = strtok(NULL, " ");
     }
 }
+
+void dot_data(Program* program, char* args) {
+}
+
+void dot_text(Program* program, char* args) {
+}
