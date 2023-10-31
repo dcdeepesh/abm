@@ -18,6 +18,8 @@ typedef struct Label {
     int line_number; // zero-indexed!
 } Label;
 
+#define PROGRAM_MAX_GLOBAL_VARIABLES 128
+
 typedef struct Program {
     Line* lines[PARSER_MAX_LINES];
     int total_lines; 
@@ -29,6 +31,9 @@ typedef struct Program {
     int stack_base;
     FunctionContext* callee_fc;
     BOOL call_pending;
+
+    Variable* global_variables[PROGRAM_MAX_GLOBAL_VARIABLES];
+    int total_global_variables;
 } Program;
 
 #endif
