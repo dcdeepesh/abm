@@ -3,7 +3,7 @@
 
 #include "program.h"
 
-#define TOTAL_INSTRUCTIONS 34
+#define TOTAL_INSTRUCTIONS 35
 
 typedef struct Function {
     char* instruction;

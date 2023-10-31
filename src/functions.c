@@ -59,4 +59,5 @@ FunctionTable* build_function_table() {
     add_to_function_table(table, ".int", int_);
     add_to_function_table(table, ".data", dot_data);
     add_to_function_table(table, ".text", dot_text);
+    add_to_function_table(table, ":&", lvalue_assign);
 }

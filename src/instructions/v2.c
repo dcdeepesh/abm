@@ -25,3 +25,7 @@ void dot_data(Program* program, char* args) {
 
 void dot_text(Program* program, char* args) {
 }
+
+void lvalue_assign(Program* program, char* args) {
+    
+}
