@@ -48,7 +48,9 @@ void lvalue_assign(Program* program, char* args) {
     Variable* lv = get_variable_from_address(program, left);
     Variable* rv = get_variable_from_address(program, right);
 
-    rv->names[rv->total_names] = lv->names[0];
-    rv->total_names++;
+    for (int i = 0; i < lv->total_names; i++) {
+        rv->names[rv->total_names] = lv->names[i];
+        rv->total_names++;
+    }
     lv->total_names = 0;
 }
