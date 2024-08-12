@@ -2,9 +2,9 @@
 
 ABM is a stack-based virtual machine with an interpreted assembly-like source code syntax.
 This was just a personal project to learn and experiment, and is not suited for any real-world
-use. As a result, ABM is not turing-complete. You are welcome to try it out though.
+use. As a result, ABM is not Turing complete. You are welcome to try it out though.
 
-Example ABM source (calculates and prints the factorial of 7):
+Example ABM code (calculates and prints the factorial of 7):
 ```
 lvalue i
 push 7
@@ -44,13 +44,13 @@ Output:
 
 ## Building
 
-ABM doesn't have any dependencies and a very simple build process. Therefore, no build tools is used.
+ABM doesn't have any dependencies and has a very simple build process, therefore no build tools are used.
 To bulid from source, clone this repository, `cd` into `src`, and run:
-```bash
-# *nix:
+```sh
+# *nix (bash):
 gcc -I. -o main *.c **/*.c
-# Windows
-gcc -I. -o main.exe *.c **/*.c
+# Windows (Powershell)
+gcc -I. -o main.exe @(Get-ChildItem -Recurse -Filter *.c).FullName
 ```
 This will create an executable named `main` (or `main.exe`) in the directory.
 
