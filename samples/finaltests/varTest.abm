@@ -1,5 +1,0 @@
-lvalue i
-push 3
-:=
-rvalue i
-print
