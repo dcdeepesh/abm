@@ -1,0 +1,16 @@
+Consider the CALLER the routine which is calling the CALLEE
+
+Before 'foo', r is:
+2
+-------------------------------------
+'p' is a formal parameter and 'r' is an actual parameter,
+therefore the call may be seen as 'foo(r)'.
+And procedure 'foo' may be seen as 'foo(int p)'.
+-------------------------------------
+In 'foo', 'r' is local. Therefore 'r' is:
+0
+In callee 'foo', the value of 'p' is:
+2
+-------------------------------------
+Value of 'p' in caller function is:
+0

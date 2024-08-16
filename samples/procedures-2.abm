@@ -1,0 +1,40 @@
+show Consider the CALLER the routine which is calling the CALLEE
+show
+
+lvalue r
+push 2
+:=
+show Before 'foo', r is:
+rvalue r
+print
+pop
+
+show -------------------------------------
+begin
+   lvalue p
+   rvalue r
+   :=
+   show 'p' is a formal parameter and 'r' is an actual parameter,
+   show therefore the call may be seen as 'foo(r)'.
+   call foo 
+end
+
+show Value of 'p' in caller function is:
+rvalue p
+print 
+pop
+halt
+
+label foo
+  show And procedure 'foo' may be seen as 'foo(int p)'.
+  show -------------------------------------
+  show In 'foo', 'r' is local. Therefore 'r' is:  
+  rvalue r  
+  print
+  pop
+  show In callee 'foo', the value of 'p' is:
+  rvalue p
+  print
+  pop
+  show -------------------------------------
+return

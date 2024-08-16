@@ -1,0 +1,18 @@
+This code illustrates parameter passing strategy.
+
+Before 'work':
+value of x is:
+0
+value of f is:
+5
+--------------------------------
+The call to procedure 'work' may be seen as:
+work(f, x);
+and the procedure 'work' itself may be seen as:
+work(INOUT int ff, INOUT int xx)
+---------------------------------
+After 'work':
+value of x is:
+1
+value of f is:
+6
