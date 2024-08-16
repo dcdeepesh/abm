@@ -1,0 +1,48 @@
+lvalue n
+push 225
+:=
+
+begin
+  lvalue arg1
+  rvalue n
+  :=
+  call sqrt
+  rvalue ret0
+end
+print
+halt
+
+label sqrt
+  lvalue counter
+  lvalue sub
+  push 1
+  :=
+
+  label while
+    rvalue arg1
+    push 0
+    >
+    gofalse breakwhile
+
+    lvalue arg1
+    rvalue arg1
+    rvalue sub
+    -
+    :=
+    lvalue sub
+    rvalue sub
+    push 2
+    +
+    :=
+    lvalue counter
+    rvalue counter
+    push 1
+    +
+    :=
+  goto while
+  label breakwhile
+
+  lvalue ret0
+  rvalue counter
+  :=
+return
